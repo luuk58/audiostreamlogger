@@ -12,5 +12,6 @@
          "folder":"rtvconnect",
          "url":"https://stream.rtvconnect.nl/radio/8000/ffm-320-mp3"
       }
-   ]
+   ],
+   "port": 9710
 }

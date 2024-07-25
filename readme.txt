@@ -40,18 +40,23 @@ Configuration
     Example settings.json:
 
     {
-    "streams":[
-        {
-            "country":"Netherlands",
-            "name":"station_1",
-            "folder":"station1",
-            "url":"https://stream.station1.nl/station1.mp3"
-        },
-        {
-            "country":"Netherlands",
-            "name":"station_2",
-            "folder":"station2",
-            "url":"https://stream.station2.nl/station2.mp3"
-        }
-    ]
+    "streams":
+        [
+            {
+                "country":"Netherlands",
+                "name":"station_1",
+                "folder":"station1",
+                "url":"https://stream.station1.nl/station1.mp3"
+            },
+            {
+                "country":"Netherlands",
+                "name":"station_2",
+                "folder":"station2",
+                "url":"https://stream.station2.nl/station2.mp3"
+            }
+        ]
     }
+
+    In the .env file the port the webserver is hosted on can be changed. This is an example:
+    
+    PORT=9703

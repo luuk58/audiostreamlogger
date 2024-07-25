@@ -35,9 +35,10 @@ services:
       - ./audio:/usr/src/app/audio
       - ./settings.json:/usr/src/app/settings.json
     ports:
-      - "9702:80"
+      - "${PORT}:80"
     environment:
       - TZ=Europe/Amsterdam
+      - PORT=${PORT}
     networks:
       - web-network
 
