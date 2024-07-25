@@ -2,10 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
 
-// Path to the settings.json file
-const settingsPath = '/usr/src/app/settings.json';
 
-// Read and parse the settings.json file
+// Getting the retention time of logs from the settings.json
+const settingsPath = '/usr/src/app/settings.json';
 let settings;
 try {
     const settingsData = fs.readFileSync(settingsPath, 'utf8');
@@ -14,17 +13,16 @@ try {
     console.error('Error reading settings.json:', err);
     process.exit(1);
 }
-
-// Access the log_retention variable
 const logRetention = settings.log_retention;
 
+
+// Setting up constants
 const folder = "/audio";
 const folderPath = path.join(__dirname, folder);
 const thresholdTime = new Date(Date.now() - logRetention * 60 * 60 * 1000);
 
-console.log(`Starting to delete files older than ${thresholdTime.toISOString()}.`);
 
-// Function to delete files older than thresholdTime
+// The function that will be called to actually delete files
 function deleteOldFiles(dir) {
     fs.readdir(dir, { withFileTypes: true }, (err, files) => {
         if (err) {
@@ -38,6 +36,7 @@ function deleteOldFiles(dir) {
                 // Recursively check subdirectories
                 deleteOldFiles(filePath);
             } else {
+                // If there are files in this directory, check their creation timestamp
                 fs.stat(filePath, (err, stats) => {
                     if (err) {
                         console.error(`Error getting stats for file ${filePath}:`, err);
@@ -61,4 +60,6 @@ cron.schedule('5 * * * *', () => {
     deleteOldFiles(folderPath);
 });
 
-console.log("Scheduler setup complete. File deletion process will run every hour at xx:05.");
+
+// Logging to see if the cleaner container is initialized properly
+console.log("Cleaner is OK! File deletion process will run every hour at xx:05.");
