@@ -1,4 +1,6 @@
 {
+   "port": 9710,
+   "log_retention":168,
    "streams":[
       {
          "country":"Netherlands",
@@ -12,6 +14,5 @@
          "folder":"rtvconnect",
          "url":"https://stream.rtvconnect.nl/radio/8000/ffm-320-mp3"
       }
-   ],
-   "port": 9710
+   ]
 }

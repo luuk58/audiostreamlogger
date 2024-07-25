@@ -2,9 +2,25 @@ const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
 
+// Path to the settings.json file
+const settingsPath = '/usr/src/app/settings.json';
+
+// Read and parse the settings.json file
+let settings;
+try {
+    const settingsData = fs.readFileSync(settingsPath, 'utf8');
+    settings = JSON.parse(settingsData);
+} catch (err) {
+    console.error('Error reading settings.json:', err);
+    process.exit(1);
+}
+
+// Access the log_retention variable
+const logRetention = settings.log_retention;
+
 const folder = "/audio";
 const folderPath = path.join(__dirname, folder);
-const thresholdTime = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
+const thresholdTime = new Date(Date.now() - logRetention * 60 * 60 * 1000);
 
 console.log(`Starting to delete files older than ${thresholdTime.toISOString()}.`);
 
