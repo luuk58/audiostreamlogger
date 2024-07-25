@@ -1,5 +1,4 @@
 {
-   "port": 9710,
    "log_retention":168,
    "streams":[
       {

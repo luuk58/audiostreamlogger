@@ -35,28 +35,28 @@ Stopping the Application
 
 Configuration
 
-    The application is configured using the settings.json file. This file specifies the streams to be recorded, including their country, name, folder, and URL.
+    The application is configured using the settings.json file. This file specifies the streams to be recorded, including their country, name, folder, and URL. Also the log retention can be adjusted.
 
     Example settings.json:
 
     {
-    "streams":
-        [
-            {
-                "country":"Netherlands",
-                "name":"station_1",
-                "folder":"station1",
-                "url":"https://stream.station1.nl/station1.mp3"
-            },
-            {
-                "country":"Netherlands",
-                "name":"station_2",
-                "folder":"station2",
-                "url":"https://stream.station2.nl/station2.mp3"
-            }
-        ]
+    "log_retention":168,
+    "streams":[
+        {
+            "country":"Netherlands",
+            "name":"Glow_FM",
+            "folder":"glowfm",
+            "url":"https://stream.glowfm.nl/glowfm.mp3"
+        },
+        {
+            "country":"Netherlands",
+            "name":"RTV_Connect",
+            "folder":"rtvconnect",
+            "url":"https://stream.rtvconnect.nl/radio/8000/ffm-320-mp3"
+        }
+    ]
     }
 
     In the .env file the port the webserver is hosted on can be changed. This is an example:
-    
+
     PORT=9703
