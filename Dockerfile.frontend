@@ -1,0 +1,23 @@
+# Use the official Node.js image
+FROM node:16
+
+# Create and change to the app directory
+WORKDIR /usr/src/app
+
+# Install ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
+
+# Copy package.json and package-lock.json from the frontend directory
+COPY frontend/package*.json ./
+
+# Install Node.js dependencies
+RUN npm install
+
+# Copy the rest of the application code from the frontend directory
+COPY frontend/ .
+
+# Expose port 9700
+EXPOSE 9700
+
+# Command to run the application
+CMD ["node", "index.js"]

@@ -1,0 +1,14 @@
+{
+    "name": "file-cleaner",
+    "version": "1.0.0",
+    "description": "A Node.js script to delete old audio files.",
+    "main": "deletefiles.js",
+    "scripts": {
+        "start": "node deletefiles.js"
+    },
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "node-cron": "^3.0.3"
+    }
+}

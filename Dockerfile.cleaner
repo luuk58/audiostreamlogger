@@ -1,0 +1,20 @@
+# Use the official Node.js image
+FROM node:16
+
+# Create and change to the app directory
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json from the cleaner directory
+COPY cleaner/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the deletefiles script
+COPY cleaner/deletefiles.js ./
+
+# Ensure the audio directory exists
+RUN mkdir -p /usr/src/app/audio
+
+# Command to run the deletefiles script
+CMD ["node", "deletefiles.js"]
