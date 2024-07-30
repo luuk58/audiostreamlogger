@@ -4,6 +4,18 @@ const { execSync } = require('child_process');
 const cron = require('node-cron');
 const audioDirectory = path.join(__dirname, `/audio`);
 
+// Getting the retention time of logs from the settings.json
+const settingsPath = '/usr/src/app/settings.json';
+let settings;
+try {
+    const settingsData = fs.readFileSync(settingsPath, 'utf8');
+    settings = JSON.parse(settingsData);
+} catch (err) {
+    console.error('Error reading settings.json:', err);
+    process.exit(1);
+}
+const peakfile_minute = settings.peakfile_minute;
+
 function generatePeakFiles() {
     // Get current date-time in "YYYY-MM-DD-HH" format, same as the format used in the audio file names. With the goal to skip them as they are still being recorded.
     const now = new Date();
@@ -45,9 +57,9 @@ function generatePeakFiles() {
 }
 
 // Schedule the generatePeakFiles function to run every hour at xx:03
-cron.schedule('3 * * * *', () => {
+cron.schedule(`${peakfile_minute} * * * *`, () => {
     console.log(`Running scheduled peak file generation at ${new Date().toISOString()}`);
     generatePeakFiles();
 });
 
-console.log("Peakfile generator is OK! Generation process will run every hour at xx:03.");
+console.log(`Peakfile generator is OK! Generation process will run every hour at xx:${peakfile_minute}.`);

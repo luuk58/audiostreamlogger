@@ -25,6 +25,7 @@ services:
       dockerfile: Dockerfile.peakfilegenerator
     volumes:
       - ./audio:/usr/src/app/audio
+      - ./settings.json:/usr/src/app/settings.json
     environment:
       - TZ=Europe/Amsterdam
 
