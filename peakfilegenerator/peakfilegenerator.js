@@ -2,11 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const cron = require('node-cron');
-
 const audioDirectory = path.join(__dirname, `/audio`);
 
 function generatePeakFiles() {
-    // Get current date-time in "YYYY-MM-DD-HH" format, same as the format used in the audio file names
+    // Get current date-time in "YYYY-MM-DD-HH" format, same as the format used in the audio file names. With the goal to skip them as they are still being recorded.
     const now = new Date();
     const currentDateTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}`;
 
@@ -25,11 +24,12 @@ function generatePeakFiles() {
                 // Extract date-time from this specific filename
                 const fileDateTime = filename.match(/\d{4}-\d{2}-\d{2}-\d{2}/)[0];
 
-                // Skip the file if its date-time matches the current date-time
+                // Skip the file if the file is of the current hour
                 if (fileDateTime === currentDateTime) {
                     return;
                 }
 
+                // If the peakfile does nog exist, create it.
                 if (!fs.existsSync(jsonFilePath)) {
                     const mp3FilePath = path.join(outputFolder, file);
                     const command = `audiowaveform -i "${mp3FilePath}" -o "${jsonFilePath}" --pixels-per-second 20 --bits 8`;
@@ -50,4 +50,4 @@ cron.schedule('3 * * * *', () => {
     generatePeakFiles();
 });
 
-console.log("Scheduler setup complete. Peak file generation process will run every hour at xx:03.");
+console.log("Peakfile generator is OK! Generation process will run every hour at xx:03.");
