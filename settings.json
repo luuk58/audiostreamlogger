@@ -1,5 +1,6 @@
 {
-   "log_retention":168,
+   "log_retention":2,
+   "cleaner_minute" : 2,
    "peakfile_minute":4,
    "streams":[
       {
