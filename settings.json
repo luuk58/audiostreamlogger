@@ -1,6 +1,6 @@
 {
    "log_retention":168,
-   "peakfile_minute":3,
+   "peakfile_minute":13,
    "streams":[
       {
          "country":"Netherlands",

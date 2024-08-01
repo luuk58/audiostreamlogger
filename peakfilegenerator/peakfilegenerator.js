@@ -62,4 +62,4 @@ cron.schedule(`${peakfile_minute} * * * *`, () => {
     generatePeakFiles();
 });
 
-console.log(`Peakfile generator is OK! Generation process will run every hour at xx:${peakfile_minute}.`);
+console.log(`Peakfile generator is OK! Generation process will run every hour at xx:`+peakfile_minute.toString().padStart(2, '0')+`.`);
