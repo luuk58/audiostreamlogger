@@ -14,8 +14,8 @@ try {
     process.exit(1);
 }
 
-const log_retention = settings.log_retention;
-const cleaner_minute = settings.cleaner_minute;
+const log_retention = settings.cleaner.log_retention;
+const cleaner_minute = settings.cleaner.cleaner_minute;
 
 // If the log_retention variable is bigger than 0 and an integer, it throws an error.
 try {

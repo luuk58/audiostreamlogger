@@ -15,7 +15,7 @@ try {
     console.error('Error reading settings.json:', err);
     process.exit(1);
 }
-const peakfile_minute = settings.peakfile_minute;
+const peakfile_minute = settings.peakfilegenerator.peakfile_minute;
 
 // If the peakfile_minute variable is not between 0 and 59 and an integer, it throws an error.
 try {

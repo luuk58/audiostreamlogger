@@ -14,7 +14,7 @@ try {
     console.error('Error reading settings.json:', err);
     process.exit(1);
 }
-const recorder_minute = settings.recorder_minute;
+const recorder_minute = settings.recorder.recorder_minute;
 
 // If the peakfile_minute variable is not between 0 and 59 and an integer, it throws an error.
 try {
