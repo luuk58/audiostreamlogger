@@ -7,6 +7,7 @@ const audioDirectory = path.join(__dirname, `/audio`);
 // Getting the retention time of logs from the settings.json
 const settingsPath = '/usr/src/app/settings.json';
 let settings;
+// If the settings.json cannot be read, throw and error
 try {
     const settingsData = fs.readFileSync(settingsPath, 'utf8');
     settings = JSON.parse(settingsData);
@@ -15,6 +16,17 @@ try {
     process.exit(1);
 }
 const peakfile_minute = settings.peakfile_minute;
+
+// If the peakfile_minute variable is not between 0 and 59 and an integer, it throws an error.
+try {
+    if (!Number.isInteger(peakfile_minute) || peakfile_minute < 0 || peakfile_minute > 59) {
+      throw new Error("ERROR! The peakfile_minute variable in settings.json must be an integer between 0 and 59.");
+    }
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+
 
 function generatePeakFiles() {
     // Get current date-time in "YYYY-MM-DD-HH" format, same as the format used in the audio file names. With the goal to skip them as they are still being recorded.
