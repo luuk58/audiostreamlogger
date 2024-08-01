@@ -2,6 +2,7 @@
    "log_retention":2,
    "cleaner_minute" : 2,
    "peakfile_minute":4,
+   "recorder_minute":44,
    "streams":[
       {
          "country":"Netherlands",
