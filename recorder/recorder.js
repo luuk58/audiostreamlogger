@@ -38,7 +38,7 @@ function recordStream(name, folder, url, codec, bitrate, container, frequency) {
     ffmpeg()
         .input(url)
         .inputOptions('-user_agent', `'${name} Logger'`)
-        .duration('01:00:00')
+        .duration('01:01:00')
         .audioCodec(codec)
         .audioBitrate(bitrate)
         .audioFrequency(frequency)
