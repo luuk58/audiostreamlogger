@@ -40,9 +40,9 @@ function generatePeakFiles() {
           const outputFolder = path.join(audioDirectory, dirent.name);
 
           fs.readdirSync(outputFolder)
-            .filter(file => path.extname(file) === '.mp3')
+            .filter(file => path.extname(file) != '.json')
             .forEach(file => {
-                const filename = path.basename(file, '.mp3');
+                const filename = path.parse(file).name;
                 const jsonFilePath = path.join(outputFolder, `${filename}.json`);
 
                 // Extract date-time from this specific filename
@@ -53,11 +53,11 @@ function generatePeakFiles() {
                     return;
                 }
 
-                // If the peakfile does nog exist, create it.
+                // If the peakfile does not exist, create it.
                 if (!fs.existsSync(jsonFilePath)) {
                     const mp3FilePath = path.join(outputFolder, file);
-                    const command = `audiowaveform -i "${mp3FilePath}" -o "${jsonFilePath}" --pixels-per-second 20 --bits 8`;
-
+                    const command = `ffmpeg -hide_banner -loglevel warning -i "${mp3FilePath}" -f wav - | audiowaveform --input-format wav -o "${jsonFilePath}" --pixels-per-second 20 --bits 8`;
+                    
                     try {
                         execSync(command);
                     } catch (error) {

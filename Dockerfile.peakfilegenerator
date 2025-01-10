@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get install -y software-properties-common curl && \
     add-apt-repository ppa:chris-needham/ppa && \
     apt-get update && \
-    apt-get install -y audiowaveform nodejs npm
+    apt-get install -y audiowaveform nodejs npm ffmpeg
 
 # Create and change to the app directory
 WORKDIR /usr/src/app
