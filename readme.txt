@@ -35,7 +35,7 @@ Stopping the Application
 
 Configuration
 
-    The application is configured using the settings.json file. This file specifies the streams to be recorded, including their country, name, folder, and URL. Also the log retention can be adjusted.
+    The application is configured using the settings.json file. This file specifies the streams to be recorded, including their country, name, folder, and URL. Optional values are the codec, bitrate, container and sample frequency. When these are not set, the recorder defaults to 160k mp3s at 44.1kHz. Also the log retention can be adjusted.
 
     Example settings.json:
 
@@ -44,15 +44,19 @@ Configuration
     "streams":[
         {
             "country":"Netherlands",
-            "name":"Glow_FM",
-            "folder":"glowfm",
-            "url":"https://stream.glowfm.nl/glowfm.mp3"
-        },
-        {
-            "country":"Netherlands",
             "name":"RTV_Connect",
             "folder":"rtvconnect",
             "url":"https://stream.rtvconnect.nl/radio/8000/ffm-320-mp3"
+        },
+        {
+            "country":"Netherlands",
+            "name":"Glow_FM",
+            "folder":"glowfm",
+            "url":"https://stream.glowfm.nl/glowfm.mp3",
+            "codec":"libopus",
+            "bitrate":"64k",
+            "container":"webm",
+            "frequency": 48000
         }
     ]
     }

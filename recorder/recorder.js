@@ -27,26 +27,27 @@ try {
   }
 
 // Function to execute ffmpeg command using fluent-ffmpeg
-function recordStream(name, folder, url) {
+function recordStream(name, folder, url, codec, bitrate, container, frequency) {
     const audioFolderPath = path.join(__dirname, `./audio/${folder}`);
     fs.mkdirSync(audioFolderPath, { recursive: true });
 
     const currentDate = new Date();
     const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}-${String(currentDate.getHours()).padStart(2, '0')}`;
-    const outputPath = `${audioFolderPath}/${folder}-${formattedDate}.mp3`;
+    const outputPath = `${audioFolderPath}/${folder}-${formattedDate}.${container}`;
 
     ffmpeg()
         .input(url)
         .inputOptions('-user_agent', `'${name} Logger'`)
         .duration('01:00:00')
-        .audioFrequency(44100)
-        .audioBitrate('160k')
+        .audioCodec(codec)
+        .audioBitrate(bitrate)
+        .audioFrequency(frequency)
         .output(outputPath)
         .on('start', (commandLine) => {
             console.log(`Started recording for ${name} in folder ${folder}.`);
         })
         .on('error', (err) => {
-            console.error(`Error: ${err.message}`);
+            console.error(`Error for ${name}: ${err.message}`);
         })
         .on('end', () => {
             console.log(`Recording finished for ${name} in folder ${folder}`);
@@ -59,7 +60,11 @@ function startRecording() {
     const json = JSON.parse(fs.readFileSync(path.join(__dirname, '/settings.json'), 'utf8'));
     const streams = json.streams;
     streams.forEach(item => {
-        recordStream(item.name, item.folder, item.url);
+        if(item.codec === undefined) { item.codec = "libmp3lame"; }
+        if(item.bitrate === undefined) { item.bitrate = "160k"; }
+        if(item.container === undefined) { item.container = "mp3"; }
+        if(item.frequency === undefined) { item.frequency = 44100; }
+        recordStream(item.name, item.folder, item.url, item.codec, item.bitrate, item.container, item.frequency);
     });
 }
 
