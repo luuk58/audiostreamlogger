@@ -2,3 +2,4 @@ node_modules
 audio/*
 settings.json
 .env
+.DS_Store
